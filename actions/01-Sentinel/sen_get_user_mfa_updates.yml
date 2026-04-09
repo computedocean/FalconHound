@@ -10,6 +10,7 @@ SourcePlatform: Sentinel                                    # Sentinel, Watchlis
 Query: |
   let timeframe = 15m;
   AuditLogs
+  | where ingestion_time() >= ago(timeframe)
   | where Result == "success"
   | where OperationName == "Update user"
   | extend UserPrincipalName = tostring(TargetResources[0].userPrincipalName)

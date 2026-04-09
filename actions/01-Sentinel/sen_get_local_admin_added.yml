@@ -10,6 +10,7 @@ SourcePlatform: Sentinel                                    # Sentinel, Watchlis
 Query: |
   let timeframe = 15m;
   SecurityEvent
+  | where ingestion_time() > ago(timeframe)
   | where EventID == 4732
   | where TargetSid == "S-1-5-32-544"
   | project TimeGenerated, Computer, TargetSid, SubjectUserSid
